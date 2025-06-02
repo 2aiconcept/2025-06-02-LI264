@@ -1,0 +1,30 @@
+{
+  "orders": [
+    {
+      "id": "1",
+      "title": "Commande laptop",
+      "amount": 1200,
+      "status": "pending",
+      "customer": "Atos"
+    },
+    {
+      "id": "2",
+      "title": "Commande écran",
+      "amount": 300,
+      "status": "completed",
+      "customer": "Capgemini"
+    }
+  ],
+  "customers": [
+    {
+      "id": "1",
+      "name": "Atos",
+      "email": "jean.dupont@atos.com"
+    },
+    {
+      "id": "2",
+      "name": "Capgemini",
+      "email": "marie.martin@capgemini.com"
+    }
+  ]
+}
