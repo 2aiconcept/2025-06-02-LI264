@@ -1,0 +1,15 @@
+/* src/layout/Nav.css */
+nav .active,
+nav a:hover {
+  background: var(
+    --bs-primary
+  ); /* Utilise la variable de couleur primaire de Bootstrap */
+  /* Vous pouvez ajouter d'autres styles ici, comme la couleur du texte si besoin */
+  /* par exemple : color: white; */
+}
+
+/* Assurez-vous que vos NavLink dans Nav.tsx auront bien la classe .nav-link de Bootstrap
+   pour que les styles de base des liens de navigation Bootstrap s'appliquent aussi,
+   et pour que :hover fonctionne correctement sur l'élément <a>.
+   Exemple: className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+*/
