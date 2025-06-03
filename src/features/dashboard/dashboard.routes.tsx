@@ -14,7 +14,7 @@ export const DashboardRoutes = {
     {
       path: "es6lab",
       lazy: async () => {
-        const Es6Lab = await import("./components/es6Lab");
+        const Es6Lab = await import("./components/Es6Lab");
         return { Component: Es6Lab.default };
       },
     },
