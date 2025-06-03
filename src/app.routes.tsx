@@ -3,6 +3,7 @@ import App from "./App";
 import { OrdersRoutes } from "./features/orders/orders.routes";
 import { CustomersRoutes } from "./features/customers/customers.routes";
 import { DashboardRoutes } from "./features/dashboard/dashboard.routes";
+import { NotFoundRoutes } from "./features/NotFund/NotFountRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ export const router = createBrowserRouter([
       OrdersRoutes,
       CustomersRoutes,
       DashboardRoutes,
+      NotFoundRoutes,
     ],
   },
 ]);
