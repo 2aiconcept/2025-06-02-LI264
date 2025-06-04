@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { OrderStates } from "../enums/Order-state.enum";
 import { useOrders } from "../hooks/useOrders";
 
@@ -19,7 +19,12 @@ const OrdersListPage = () => {
     <>
       <div className="container-fluid d-flex justify-content-between border-bottom pb-3">
         <h4 className="d-inline-block">Orders List</h4>
-        <button className="btn btn-primary">Add Order</button>
+        <Link
+          to="add"
+          className="btn btn-primary"
+        >
+          Add order
+        </Link>
       </div>
       <div className="container-fluid mt-3">
         {error && <div className="alert alert-danger">{error}</div>}

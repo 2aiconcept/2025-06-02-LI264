@@ -69,6 +69,23 @@ export const useOrders = () => {
       .finally(() => setLoading(false));
   };
 
+  // fetchOrderById
+  const fetchOrderById = (id: string) => {
+    setLoading(true);
+    setError(null);
+    return ordersService //  AJOUTER ce return
+      .getById(id)
+      .then((res) => {
+        setLoading(false);
+        return res;
+      })
+      .catch((err) => {
+        setError(err instanceof Error ? err.message : String(err));
+        setLoading(false);
+        throw err;
+      });
+  };
+
   //   return les valeurs que les composants utilisent
   return {
     orders,
@@ -77,5 +94,6 @@ export const useOrders = () => {
     deleteOrder: deleteOrderById,
     add: addOrder,
     update: updateOrder,
+    orderById: fetchOrderById,
   };
 };
