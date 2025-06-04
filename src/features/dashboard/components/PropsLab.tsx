@@ -1,13 +1,25 @@
 import AlertSuccess from "./AlertSuccess";
 import ContentBox from "./ContentBox";
 import DataSender from "./DataSender";
+import FormUser from "./FormUser";
 import UserInfoCard from "./UserInfoCard";
 
+export interface User {
+  firstName: string;
+  lastName: string;
+}
 const PropsLab = () => {
   const pageTitle = "Laboratoire des Props - Introduction";
   const premierStagiaire = "Alexandre";
   const deuxiemeStagiaire = "Béatrice";
   const messageAlert = "un message au hasard";
+  const user = {
+    firstName: 'Jean',
+    lastName: 'Dupond'
+  }
+  const formSave = (user: User) => {
+    console.log(user)
+  }
   const handleDataFromChild = (data: string) => {
     console.log(data); // val de l'input récupérée depuis l'enfant après click sur bouton de formalaire
   };
@@ -72,6 +84,10 @@ const PropsLab = () => {
       </ContentBox>
 
       <DataSender onSendData={handleDataFromChild}/>
+
+      <hr />
+
+      <FormUser user={user} onSave={formSave}/>
     </>
   );
 };
