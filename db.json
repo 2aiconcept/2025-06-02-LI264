@@ -1,18 +1,11 @@
 {
   "orders": [
     {
-      "id": "1",
-      "title": "Commande laptop",
-      "amount": 1200,
-      "status": "pending",
-      "customer": "Atos"
-    },
-    {
-      "id": "2",
       "title": "Commande écran",
-      "amount": 300,
+      "amount": 500,
       "status": "completed",
-      "customer": "Capgemini"
+      "customer": "2ai concept ltd",
+      "id": "Sbrur9H"
     }
   ],
   "customers": [
