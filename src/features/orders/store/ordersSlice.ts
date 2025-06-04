@@ -29,7 +29,7 @@ const ordersSlice = createSlice({
       state.orders = action.payload;
       state.error = null;
     },
-    setOrdersError: (state, action: PayloadAction<string>) => {
+    setOrdersError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
     },
 
@@ -56,4 +56,15 @@ const ordersSlice = createSlice({
     },
   },
 });
+
+// 3. Export des actions et du reducer
+export const {
+  setLoading,
+  setOrders,
+  setOrdersError,
+  setCurrentOrder,
+  addOrderSuccess,
+  updateOrderSuccess,
+  deleteOrderSuccess,
+} = ordersSlice.actions;
 export default ordersSlice.reducer;

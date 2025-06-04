@@ -1,14 +1,33 @@
 import { Link, useNavigate } from "react-router-dom";
 import { OrderStates } from "../enums/Order-state.enum";
-import { useOrders } from "../hooks/useOrders";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
+import {
+  selectAllOrders,
+  selectError,
+  selectLoading,
+} from "../store/ordersSelectors";
+import type { IOrder } from "../types/Order.interface";
+import { useEffect } from "react";
+import { deleteOrderEffect, fetchOrders } from "../store/ordersEffects";
+// import { useOrders } from "../hooks/useOrders";
 
 const OrdersListPage = () => {
   //   le hook return un objet donc desctucturing d'objet
-  const { orders, loading, error, deleteOrder } = useOrders();
+  // const { orders, loading, error, deleteOrder } = useOrders();
+
+  const dispatch = useAppDispatch();
+  const orders = useAppSelector((state) => selectAllOrders(state)) as IOrder[];
+  const loading = useAppSelector((state) => selectLoading(state)) as boolean;
+  const error = useAppSelector((state) => selectError(state)) as string | null;
+
+  useEffect(() => {
+    dispatch(fetchOrders());
+  }, [dispatch]);
 
   const handleDelete = async (id: string) => {
     if (window.confirm("Do you realy want to delete this order ?")) {
-      await deleteOrder(id);
+      // await deleteOrder(id);
+      dispatch(deleteOrderEffect(id));
       //   le code ici s'executera après la résolution de la promesse grace au async await
     }
   };
@@ -91,3 +110,6 @@ const OrdersListPage = () => {
   );
 };
 export default OrdersListPage;
+function selectAllProducts(state: { orders: OrdersState }): any {
+  throw new Error("Function not implemented.");
+}
