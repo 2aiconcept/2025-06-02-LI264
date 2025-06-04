@@ -1,49 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import { OrderStates } from "../enums/Order-state.enum";
-import { deleteOrder, getAllOrders } from "../services/Orders.service";
-import { useEffect, useState } from "react";
-import type { IOrder } from "../types/Order.interface";
+import { useOrders } from "../hooks/useOrders";
 
 const OrdersListPage = () => {
-  const [orders, setOrders] = useState<IOrder[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  //   le hook return un objet donc desctucturing d'objet
+  const { orders, loading, error, deleteOrder } = useOrders();
 
-  const navigate = useNavigate();
   const handleDelete = async (id: string) => {
     if (window.confirm("Do you realy want to delete this order ?")) {
-      setLoading(true);
-      setError(null);
-      //   alternative gestion des promesses
-      // try {
-      //   await deleteOrder(id);
-      //   setOrders((fetchOrders) =>
-      //     fetchOrders.filter((order) => order.id !== id)
-      //   );
-      // } catch (err) {
-      //   setError(err instanceof Error ? err.message : String(err));
-      // } finally {
-      //   setLoading(false);
-      // }
-      deleteOrder(id)
-        .then(() =>
-          setOrders((orders) => orders.filter((order) => order.id !== id))
-        )
-        .catch((error) => setError(error))
-        .finally(() => setLoading(false));
+      await deleteOrder(id);
+      //   le code ici s'executera après la résolution de la promesse grace au async await
     }
   };
 
-  useEffect(() => {
-    setLoading(true);
-    setError(null);
-    getAllOrders()
-      .then((fetchOrders) => setOrders(fetchOrders))
-      .catch((err) =>
-        setError(err instanceof Error ? err.message : String(err))
-      )
-      .finally(() => setLoading(false));
-  }, []);
+  const navigate = useNavigate();
 
   return (
     <>

@@ -43,3 +43,11 @@ export const deleteOrder = async (id: string): Promise<IOrder> => {
   const response = await httpClient.delete<IOrder>(`${ORDERS_ENDPOINT}/${id}`);
   return response.data;
 };
+
+export const ordersService = {
+  getAll: getAllOrders,
+  getById: getOrderById,
+  create: createOrder,
+  update: updateOrder,
+  delete: deleteOrder,
+};
