@@ -1,37 +1,51 @@
 // pages/EditOrderPage.tsx
 import { useNavigate, useParams } from "react-router-dom";
 import FormOrder from "../components/FormOrder";
-import { useOrders } from "../hooks/useOrders";
+// import { useOrders } from "../hooks/useOrders";
 import type { IOrder } from "../types/Order.interface";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
+import {
+  selectCurrentOrder,
+  selectError,
+  selectLoading,
+} from "../store/ordersSelectors";
+import { fetchOrderById, updateOrderEffect } from "../store/ordersThunks";
 
 const EditOrderPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [order, setOrder] = useState<IOrder | null>(null);
+  // const [order, setOrder] = useState<IOrder | null>(null);
 
   // le hook return un objet donc destructuring d'objet
-  const { loading, error, update, orderById } = useOrders();
+  // const { loading, error, update, orderById } = useOrders();
+  // const { loading, error, update, orderById } = useOrders();
+  const dispatch = useAppDispatch();
+  const orderSelected = useAppSelector(selectCurrentOrder);
+  const loading = useAppSelector(selectLoading);
+  const error = useAppSelector(selectError);
 
   // handleSubmit()
-  const handleSubmit = (order: IOrder) => {
+  const handleSubmit = async  (order: IOrder) => {
     // => utilisation du hook useOrders
-    update(order);
-    // => rediriger vers la route /orders useNavigate()
+    // update(order);
+    await dispatch(updateOrderEffect(order))
+    // => attend reponse api avant de rediriger vers la route /orders useNavigate()
     navigate("/orders");
   };
 
   useEffect(() => {
     if (!id) return;
-    orderById(id)
-      .then((fetchedOrder) => {
-        setOrder(fetchedOrder);
-        // loading a false (géré par le hook)
-      })
-      .catch((err) => {
-        console.error("Erreur lors du chargement:", err);
-      });
-  }, []);
+    dispatch(fetchOrderById(id));
+    // orderById(id)
+    //   .then((fetchedOrder) => {
+    //     setOrder(fetchedOrder);
+    //     // loading a false (géré par le hook)
+    //   })
+    //   .catch((err) => {
+    //     console.error("Erreur lors du chargement:", err);
+    //   });
+  }, [dispatch, id]);
 
   return (
     <>
@@ -42,9 +56,9 @@ const EditOrderPage = () => {
         </div>
       ) : error ? (
         <div className="alert alert-danger">{error}</div>
-      ) : order ? (
+      ) : orderSelected ? (
         <FormOrder
-          order={order}
+          order={orderSelected}
           onSave={handleSubmit}
         />
       ) : (

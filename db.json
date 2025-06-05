@@ -1,13 +1,6 @@
 {
   "orders": [
     {
-      "title": "Commande écran",
-      "amount": 500,
-      "status": "pending",
-      "customer": "2ai concept ltd xxssssss",
-      "id": "Sbrur9H"
-    },
-    {
       "id": "-2m1hRu",
       "title": "tv",
       "amount": 500,
@@ -15,18 +8,25 @@
       "customer": "Atos"
     },
     {
-      "id": "JGFU4pq",
-      "title": "screen",
-      "amount": 500,
-      "status": "completed",
-      "customer": "PLB"
-    },
-    {
       "id": "BHLxO9m",
       "title": "un title",
       "amount": 500,
       "status": "pending",
       "customer": "capgemini"
+    },
+    {
+      "id": "cTEQXIX",
+      "title": "écran tv",
+      "amount": 500,
+      "status": "pending",
+      "customer": "Ib-Cegos"
+    },
+    {
+      "id": "LXCi9FI",
+      "title": "clavier",
+      "amount": 500,
+      "status": "completed",
+      "customer": "Ib-Cegos"
     }
   ],
   "customers": [

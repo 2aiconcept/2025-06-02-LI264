@@ -1,4 +1,4 @@
-// src/features/products/redux/productSelectors.ts
+// src/features/orders/redux/ordersSelectors.ts
 import { createSelector } from "@reduxjs/toolkit";
 import type { RootState } from "../../../store";
 import type { IOrder } from "../types/Order.interface";
@@ -18,16 +18,16 @@ export const selectOrdersState = (state: RootState) => state.orders;
  * un selecteur de base est ne simple fonction qui prend le state global et retourne
  * une partie spécifique (exemple le state products)
  *
- * un selecteur dérivé utilise d'autres selecteurs en entrée (ici selectProcutState)
+ * un selecteur dérivé (ou mémorisé) utilise d'autres selecteurs en entrée (ici selectOrdersState)
  * il permet de récupérer des données directement du state sélectionné
  *
- * @exemple const products = useSelector(selectAllProducts);
+ * @exemple const orders = useSelector(selectAllOrderss);
  * avec notre hook personnalisé :
- * @empemple const products = useAppSelector(selectAllProducts);
+ * @empemple const orders = useAppSelector(selectAllOrders);
  * avec typescript si probleme de typage
- * @exemple const products = useAppSelector((state) =>
-     selectAllProducts(state)
-   ) as IProduct[];
+ * @exemple const orders = useAppSelector((state) =>
+     selectAllOrders(state)
+   ) as IOrder[];
  */
 // Sélecteurs dérivés
 export const selectAllOrders = createSelector(
@@ -49,10 +49,3 @@ export const selectError = createSelector(
   [selectOrdersState],
   (state): string | null => state.error
 );
-
-// Sélecteur avec paramètre
-export const selectOrderById = (id: string) =>
-  createSelector(
-    [selectAllOrders],
-    (orders): IOrder | null => orders.find((order) => order.id === id) || null
-  );

@@ -8,7 +8,7 @@ import {
 } from "../store/ordersSelectors";
 import type { IOrder } from "../types/Order.interface";
 import { useEffect } from "react";
-import { deleteOrderEffect, fetchOrders } from "../store/ordersEffects";
+import { deleteOrderEffect, fetchOrders } from "../store/ordersThunks";
 // import { useOrders } from "../hooks/useOrders";
 
 const OrdersListPage = () => {
@@ -27,8 +27,9 @@ const OrdersListPage = () => {
   const handleDelete = async (id: string) => {
     if (window.confirm("Do you realy want to delete this order ?")) {
       // await deleteOrder(id);
-      dispatch(deleteOrderEffect(id));
+      await dispatch(deleteOrderEffect(id));
       //   le code ici s'executera après la résolution de la promesse grace au async await
+
     }
   };
 
@@ -110,6 +111,3 @@ const OrdersListPage = () => {
   );
 };
 export default OrdersListPage;
-function selectAllProducts(state: { orders: OrdersState }): any {
-  throw new Error("Function not implemented.");
-}
