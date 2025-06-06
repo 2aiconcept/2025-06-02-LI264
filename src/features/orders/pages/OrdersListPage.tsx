@@ -6,7 +6,6 @@ import {
   selectError,
   selectLoading,
 } from "../store/ordersSelectors";
-import type { IOrder } from "../types/Order.interface";
 import { useEffect } from "react";
 import { deleteOrderEffect, fetchOrders } from "../store/ordersThunks";
 // import { useOrders } from "../hooks/useOrders";
@@ -16,9 +15,9 @@ const OrdersListPage = () => {
   // const { orders, loading, error, deleteOrder } = useOrders();
 
   const dispatch = useAppDispatch();
-  const orders = useAppSelector((state) => selectAllOrders(state)) as IOrder[];
-  const loading = useAppSelector((state) => selectLoading(state)) as boolean;
-  const error = useAppSelector((state) => selectError(state)) as string | null;
+  const orders = useAppSelector(selectAllOrders);
+  const loading = useAppSelector(selectLoading);
+  const error = useAppSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchOrders());
