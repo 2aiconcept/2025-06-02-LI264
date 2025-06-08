@@ -2,19 +2,24 @@ import type { ICustomer } from "../types/Customer.interface";
 import { Customer } from "../models/Customer.model";
 import { useNavigate } from "react-router-dom";
 import FormCustomer from "../components/FormCustomer";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
-import { selectError, selectLoading } from "../store/customersSelectors";
-import { addCustomerThunk } from "../store/customersThunks";
+// import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
+// import { selectError, selectLoading } from "../store/customersSelectors";
+// import { addCustomerThunk } from "../store/customersThunks";
+import { useCustomersFacade } from "../hooks/useCustomersFacade";
 
 const AddCustomerPage = () => {
   const navigate = useNavigate();
 
-  const dispatch = useAppDispatch();
-  const loading = useAppSelector(selectLoading);
-  const error = useAppSelector(selectError);
+  // const dispatch = useAppDispatch();
+  // const loading = useAppSelector(selectLoading);
+  // const error = useAppSelector(selectError);
 
-  const handleSubmit = async (Customer: ICustomer) => {
-    await dispatch(addCustomerThunk(Customer))
+  const { loading, error, addCustomer } = useCustomersFacade();
+  
+
+  const handleSubmit = async (customer: ICustomer) => {
+    // await dispatch(addCustomerThunk(customer))
+    await addCustomer(customer)
     navigate("/customers");
   };
 

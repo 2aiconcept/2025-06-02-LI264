@@ -3,33 +3,37 @@ import { useNavigate, useParams } from "react-router-dom";
 import FormCustomer from "../components/FormCustomer";
 import type { ICustomer } from "../types/Customer.interface";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
-import {
-  selectCurrentCustomer,
-  selectError,
-  selectLoading,
-} from "../store/customersSelectors";
-import { fetchCustomerById, updateCustomerThunk } from "../store/customersThunks";
+// import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
+// import {
+//   selectCurrentCustomer,
+//   selectError,
+//   selectLoading,
+// } from "../store/customersSelectors";
+// import { fetchCustomerById, updateCustomerThunk } from "../store/customersThunks";
+import { useCustomersFacade } from "../hooks/useCustomersFacade";
 
 const EditCustomerPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const dispatch = useAppDispatch();
-  const CustomerSelected = useAppSelector(selectCurrentCustomer);
-  const loading = useAppSelector(selectLoading);
-  const error = useAppSelector(selectError);
+  // const dispatch = useAppDispatch();
+  // const CustomerSelected = useAppSelector(selectCurrentCustomer);
+  // const loading = useAppSelector(selectLoading);
+  // const error = useAppSelector(selectError);
+  const { loading, error, updateCustomer, loadCustomerById, currentCustomer } = useCustomersFacade();
 
   // handleSubmit()
   const handleSubmit = async  (Customer: ICustomer) => {
-    await dispatch(updateCustomerThunk(Customer))
+    // await dispatch(updateCustomerThunk(Customer))
+    await updateCustomer(Customer)
     navigate("/customers");
   };
 
   useEffect(() => {
     if (!id) return;
-    dispatch(fetchCustomerById(id));
-  }, [dispatch, id]);
+    // dispatch(fetchCustomerById(id));
+    loadCustomerById(id)
+  }, [loadCustomerById, id]);
 
   return (
     <>
@@ -40,9 +44,9 @@ const EditCustomerPage = () => {
         </div>
       ) : error ? (
         <div className="alert alert-danger">{error}</div>
-      ) : CustomerSelected ? (
+      ) : currentCustomer ? (
         <FormCustomer
-          Customer={CustomerSelected}
+          Customer={currentCustomer}
           onSave={handleSubmit}
         />
       ) : (

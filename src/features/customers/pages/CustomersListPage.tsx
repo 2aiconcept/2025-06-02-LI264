@@ -1,23 +1,47 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
-import { selectAllCustomers, selectError, selectLoading } from "../store/customersSelectors";
-import { deleteCustomerThunk, fetchAllCustomers } from "../store/customersThunks";
+// import { useAppDispatch, useAppSelector } from "../../../store/hooks/redux";
+// import { selectAllCustomers, selectError, selectLoading } from "../store/customersSelectors";
+// import { deleteCustomerThunk, fetchAllCustomers } from "../store/customersThunks";
 import { useEffect } from "react";
+import { useCustomersFacade } from "../hooks/useCustomersFacade";
 const CustomersListPage = () => {
-  const customers = useAppSelector(selectAllCustomers);
-  const loading = useAppSelector(selectLoading);
-  const error = useAppSelector(selectError);
-  const dispatch = useAppDispatch()
+  // <-----------------------------sans les facades------------------------
+  // const customers = useAppSelector(selectAllCustomers);
+  // const loading = useAppSelector(selectLoading);
+  // const error = useAppSelector(selectError);
+  // const dispatch = useAppDispatch()
+  // useEffect(() => {
+  //   dispatch(fetchAllCustomers())
+  //   console.log('re rendu')
+  // }, [dispatch])
+
+  // const handleDelete = async (id: string) => {
+  //   if (window.confirm("Do you realy want to delete this Customer ?")) {
+  //     await dispatch(deleteCustomerThunk(id));
+  //     // refrech collection from api after delete
+  //     await dispatch(fetchAllCustomers());
+  //   }
+  //  };
+  // --------------------------------------------------------------------->
+
+  // <------------------------------------avec les facaces ----------------
+  // Le composant utilise UNE SEULE ligne pour obtenir tout ce dont il a besoin
+  const { customers, loading, error, loadCustomers, removeCustomer } = useCustomersFacade();
+  useEffect(() => {
+    loadCustomers() // boucle infinie sans useCallBack
+    console.log('use effect called')
+  }, [loadCustomers])
+ 
   const handleDelete = async (id: string) => {
     if (window.confirm("Do you realy want to delete this Customer ?")) {
-      await dispatch(deleteCustomerThunk(id));
+      await removeCustomer(id)
       // refrech collection from api after delete
-      await dispatch(fetchAllCustomers());
+      await loadCustomers()
     }
-  };
-  useEffect(() => {
-    dispatch(fetchAllCustomers())
-  }, [dispatch])
+   };
+   // ---------------------------------------avec facades
+
+  
   const navigate = useNavigate();
   return (
     <>
