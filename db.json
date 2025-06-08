@@ -31,14 +31,24 @@
   ],
   "customers": [
     {
-      "id": "1",
-      "name": "Atos",
-      "email": "jean.dupont@atos.com"
+      "id": "4gGHZ4V",
+      "name": "ib",
+      "email": "contact@ib.fr"
     },
     {
-      "id": "2",
-      "name": "Capgemini",
-      "email": "marie.martin@capgemini.com"
+      "id": "EKYJdRo",
+      "name": "Modis2",
+      "email": "contact@modis2.com"
+    },
+    {
+      "id": "a3qPo42",
+      "name": "2ai concept ltd",
+      "email": "christophegueroult@gmail.com"
+    },
+    {
+      "id": "TKcRTdm",
+      "name": "Modis2",
+      "email": "contact@modis2.Fr"
     }
   ]
 }

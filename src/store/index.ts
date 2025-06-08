@@ -1,12 +1,13 @@
 // src/store/index.ts
 import { configureStore } from "@reduxjs/toolkit";
-import ordersSlice from "../features/orders/store/ordersSlice";
+import ordersReducer from "../features/orders/store/ordersSlice";
+import customersReducer from "../features/customers/store/customersSlice";
 
 // Store simple sans types complexes
 export const store = configureStore({
   reducer: {
-    orders: ordersSlice,
-    // customers: customersReducer
+    orders: ordersReducer,
+    customers: customersReducer,
   },
 });
 
